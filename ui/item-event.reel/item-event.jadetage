@@ -1,0 +1,100 @@
+:montage-style
+
+  .title
+    font-weight bold
+    margin-bottom 5px
+
+    a
+      color black
+
+  .byline
+    font-size 12px
+    margin-bottom 5px
+
+    .date
+      float right
+
+  .excerpt
+    margin-bottom 5px
+
+  .more
+    font-size 11px
+
+:montage-script
+
+  Component = require("montage/ui/component").Component
+
+  exports.ItemEvent = Component.specialize
+    item: value: null
+
+:montage-html
+
+html
+  head
+    link(rel="stylesheet" type="text/css" href="item-event.css")
+    :bindings
+      owner:
+        properties:
+          element: "#": "item-event"
+
+      converterDate:
+        prototype: "montage/core/converter/date-converter"
+        properties:
+          pattern: "ddd MMM dd yyyy"
+
+      converterStrip:
+        prototype: "ui/strip-markup-converter"
+
+      title:
+        prototype: "matte/ui/anchor.reel"
+        properties:
+          element: "#": "title"
+        bindings:
+          textContent:
+            "<-": "@owner.item.title ?? ''"
+            converter: "@": "converterStrip"
+          href: "<-": "@owner.item.link"
+
+      location:
+        prototype: "montage/ui/text.reel"
+        properties:
+          element: "#": "location"
+        bindings:
+          value: "<-": "'Location'"
+
+      date:
+        prototype: "montage/ui/text.reel"
+        properties:
+          element: "#": "date"
+        bindings:
+          value:
+            "<-": "@owner.item.post_meta._EventStartDate.0"
+            converter: "@": "converterDate"
+
+      excerpt:
+        prototype: "montage/ui/text.reel"
+        properties:
+          element: "#": "excerpt"
+        bindings:
+          value:
+            "<-": "@owner.item.excerpt"
+            converter: "@": "converterStrip"
+
+      more:
+        prototype: "matte/ui/anchor.reel"
+        properties:
+          element: "#": "more"
+        bindings:
+          textContent: "<-": "'Read More'"
+          href: "<-": "@owner.item.link"
+
+  body
+    .item-event(mid="item-event")
+      .title
+        a(mid="title")
+      .byline
+        span.date(mid="date")
+        span.location(mid="location")
+      .excerpt(mid="excerpt")
+      a.more(mid="more")
+

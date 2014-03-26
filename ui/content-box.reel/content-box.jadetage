@@ -1,0 +1,53 @@
+:montage-style
+  border-color = #c9c9c9
+  
+  border 1px solid border-color
+  background white
+  margin 15px
+
+  .item
+    padding 15px
+
+  .item + .item
+    border-top 1px solid border-color
+
+  .content-box-header
+    border-bottom 1px solid border-color
+    font-weight bold
+    padding 8px
+
+    
+:montage-script
+
+  Component = require("montage/ui/component").Component
+
+  exports.ContentBox = Component.specialize
+    content: value: null
+
+:montage-html
+
+html
+  head
+    link(rel="stylesheet" type="text/css" href="content-box.css")
+    :bindings
+      owner:
+        properties:
+          element: "#": "content-box"
+
+      items:
+        prototype: "montage/ui/repetition.reel"
+        properties:
+          element: "#": "items"
+        bindings:
+          content: "<-": "@owner.content"
+
+      ":iteration":
+        alias: "@items:iteration"
+
+  body
+    .content-box(mid="content-box")
+      .content-box-header
+        div(data-param="header")
+      .content(mid="items")
+        .item
+          div(data-param="content")

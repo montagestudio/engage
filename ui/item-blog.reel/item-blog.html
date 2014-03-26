@@ -1,0 +1,119 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="item-blog.css" />
+    <script type="text/montage-serialization">
+        {
+            "owner": {
+                "properties": {
+                    "element": {
+                        "#": "item-blog"
+                    }
+                }
+            },
+            "converterDate": {
+                "prototype": "montage/core/converter/date-converter",
+                "properties": {
+                    "pattern": "ddd MMM dd yyyy"
+                }
+            },
+            "converterStrip": {
+                "prototype": "ui/strip-markup-converter"
+            },
+            "title": {
+                "prototype": "matte/ui/anchor.reel",
+                "properties": {
+                    "element": {
+                        "#": "title"
+                    }
+                },
+                "bindings": {
+                    "textContent": {
+                        "<-": "@owner.item.title ?? ''"
+                    },
+                    "href": {
+                        "<-": "@owner.item.link"
+                    }
+                }
+            },
+            "author": {
+                "prototype": "montage/ui/text.reel",
+                "properties": {
+                    "element": {
+                        "#": "author"
+                    }
+                },
+                "bindings": {
+                    "value": {
+                        "<-": "@owner.item.author.name"
+                    }
+                }
+            },
+            "date": {
+                "prototype": "montage/ui/text.reel",
+                "properties": {
+                    "element": {
+                        "#": "date"
+                    }
+                },
+                "bindings": {
+                    "value": {
+                        "<-": "@owner.item.date",
+                        "converter": {
+                            "@": "converterDate"
+                        }
+                    }
+                }
+            },
+            "excerpt": {
+                "prototype": "montage/ui/text.reel",
+                "properties": {
+                    "element": {
+                        "#": "excerpt"
+                    }
+                },
+                "bindings": {
+                    "fullText": {
+                        "<-": "@owner.item.content.slice(0,1000)",
+                        "converter": {
+                            "@": "converterStrip"
+                        }
+                    },
+                    "value": {
+                        "<-": ".fullText.slice(0,500)"
+                    }
+                }
+            },
+            "more": {
+                "prototype": "matte/ui/anchor.reel",
+                "properties": {
+                    "element": {
+                        "#": "more"
+                    }
+                },
+                "bindings": {
+                    "textContent": {
+                        "<-": "'Read More'"
+                    },
+                    "href": {
+                        "<-": "@owner.item.link"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div data-montage-id="item-blog" class="item-blog">
+        <div class="title">
+            <a data-montage-id="title"></a>
+        </div>
+        <div class="byline"><span data-montage-id="date" class="date"></span><span data-montage-id="author" class="author"></span>
+        </div>
+        <div data-montage-id="excerpt" class="excerpt"></div>
+        <a data-montage-id="more" class="more"></a>
+    </div>
+</body>
+
+</html>

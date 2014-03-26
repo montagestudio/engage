@@ -1,0 +1,20 @@
+.item-event .title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.item-event .title a {
+  color: #000;
+}
+.item-event .byline {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+.item-event .byline .date {
+  float: right;
+}
+.item-event .excerpt {
+  margin-bottom: 5px;
+}
+.item-event .more {
+  font-size: 11px;
+}

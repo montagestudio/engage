@@ -1,0 +1,23 @@
+.item-blog .title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.item-blog .title a {
+  color: #000;
+}
+.item-blog .byline {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+.item-blog .byline .date {
+  float: right;
+}
+.item-blog .excerpt {
+  overflow: hidden;
+  line-height: 3ex;
+  height: 6ex;
+  margin-bottom: 5px;
+}
+.item-blog .more {
+  font-size: 11px;
+}

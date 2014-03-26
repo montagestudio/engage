@@ -1,0 +1,219 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="main.css" />
+    <script type="text/montage-serialization">
+        {
+            "owner": {
+                "properties": {
+                    "element": {
+                        "#": "main"
+                    }
+                }
+            },
+            "dataForum": {
+                "prototype": "ui/discourse-controller",
+                "properties": {
+                    "siteAddress": "forum.montagestudio.com"
+                }
+            },
+            "dataBlog": {
+                "prototype": "ui/wordpress-controller",
+                "properties": {
+                    "siteAddress": "montagestudio.com/blog",
+                    "queryPosts": {}
+                }
+            },
+            "dataEvents": {
+                "prototype": "ui/wordpress-controller",
+                "properties": {
+                    "siteAddress": "montagestudio.com/blog",
+                    "queryPosts": {
+                        "type": "tribe_events"
+                    }
+                }
+            },
+            "listBlog": {
+                "prototype": "ui/content-box.reel",
+                "properties": {
+                    "element": {
+                        "#": "listBlog"
+                    }
+                },
+                "bindings": {
+                    "content": {
+                        "<-": "@dataBlog.posts.view(0,3)"
+                    }
+                }
+            },
+            "itemBlog": {
+                "prototype": "ui/item-blog.reel",
+                "properties": {
+                    "element": {
+                        "#": "itemBlog"
+                    }
+                },
+                "bindings": {
+                    "item": {
+                        "<-": "@listBlog:iteration.object"
+                    }
+                }
+            },
+            "listEvents": {
+                "prototype": "ui/content-box.reel",
+                "properties": {
+                    "element": {
+                        "#": "listEvents"
+                    }
+                },
+                "bindings": {
+                    "content": {
+                        "<-": "@dataEvents.posts.view(0,3)"
+                    },
+                    "classList.has('hidden')": {
+                        "<-": "@dataEvents.posts.length < 1"
+                    }
+                }
+            },
+            "itemEvent": {
+                "prototype": "ui/item-event.reel",
+                "properties": {
+                    "element": {
+                        "#": "itemEvent"
+                    }
+                },
+                "bindings": {
+                    "item": {
+                        "<-": "@listEvents:iteration.object"
+                    }
+                }
+            },
+            "listForum": {
+                "prototype": "ui/content-box.reel",
+                "properties": {
+                    "element": {
+                        "#": "listForum"
+                    }
+                },
+                "bindings": {
+                    "content": {
+                        "<-": "@dataForum.categories.category_list.categories.filter{topics.length && name != 'Prerelease'}"
+                    }
+                }
+            },
+            "itemForum": {
+                "prototype": "ui/item-forum.reel",
+                "properties": {
+                    "element": {
+                        "#": "itemForum"
+                    }
+                },
+                "bindings": {
+                    "item": {
+                        "<-": "@listForum:iteration.object"
+                    }
+                }
+            },
+            "listTweets": {
+                "prototype": "ui/content-box.reel",
+                "properties": {
+                    "element": {
+                        "#": "listTweets"
+                    },
+                    "content": [
+                        0
+                    ]
+                }
+            },
+            "intro": {
+                "prototype": "ui/content-box.reel",
+                "properties": {
+                    "element": {
+                        "#": "intro"
+                    },
+                    "content": [
+                        0
+                    ]
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div data-montage-id="main" class="main">
+        <div class="column">
+            <div id="intro" data-montage-id="intro" class="container">
+                <div data-arg="header"><span><i class="fa fa-heart"></i> Connect with Us</span>
+                </div>
+                <div data-arg="content">
+                    <p>Welcome to our Community.</p>
+                    <ul>
+                        <li><a href="/blog">Read our Blog</a>
+                        </li>
+                        <li><a href="http://docs.montagestudio.com">View our Tutorials</a>
+                        </li>
+                        <li><a href="http://forum.montagestudio.com">Engage with our Community</a>
+                        </li>
+                        <li><a href="/blog/events">Meet us at Upcoming Events</a>
+                        </li>
+                    </ul>
+                    <p>Follow us on our Social Channels:</p>
+                    <ul class="social-section">
+                        <li><a href="http://twitter.com/montagejs"><span><i class="fa fa-twitter"></i> Twitter</span></a>
+                        </li>
+                        <li><a href="https://www.facebook.com/montagejs"><span><i class="fa fa-facebook"></i> Facebook</span></a>
+                        </li>
+                        <li><a href="https://plus.google.com/b/101723649755315477950/101723649755315477950/about"><span><i class="fa fa-google-plus"></i> Google+</span></a>
+                        </li>
+                        <li><a href="http://www.linkedin.com/company/3638779"><span><i class="fa fa-linkedin"></i> LinkedIn</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="blog" data-montage-id="listBlog" class="container">
+                <div data-arg="header"><a href="/blog" class="more">Read More <i class="fa fa-angle-right"></i></a><span><i class="fa fa-rss-square"></i> From the Blog</span>
+                </div>
+                <div data-arg="content">
+                    <div data-montage-id="itemBlog"></div>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div id="events" data-montage-id="listEvents" class="container">
+                <div data-arg="header"><a href="/blog/events" class="more">Read More <i class="fa fa-angle-right"></i></a><span><i class="fa fa-calendar"></i> Upcoming Events</span>
+                </div>
+                <div data-arg="content">
+                    <div data-montage-id="itemEvent"></div>
+                </div>
+            </div>
+            <div id="forum" data-montage-id="listForum" class="container">
+                <div data-arg="header"><a href="http://forum.montagestudio.com" class="more">Read More <i class="fa fa-angle-right"></i></a><span><i class="fa fa-comments"></i> From the Forum</span>
+                </div>
+                <div data-arg="content">
+                    <div data-montage-id="itemForum"></div>
+                </div>
+            </div>
+            <div id="tweets" data-montage-id="listTweets" class="container">
+                <div data-arg="header"><a href="http://twitter.com/montagejs" class="more">Read More <i class="fa fa-angle-right"></i></a><span><i class="fa fa-twitter"></i> From Twitter</span>
+                </div>
+                <div data-arg="content"><a class="twitter-timeline" href="https://twitter.com/montagejs" data-chrome="nofooter noheader transparent" data-widget-id="440267201853915136">Tweets by @montagejs</a>
+                    <script>
+                        ! function(d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0],
+                                p = /^http:/.test(d.location) ? 'http' : 'https';
+                            if (!d.getElementById(id)) {
+                                js = d.createElement(s);
+                                js.id = id;
+                                js.src = p + "://platform.twitter.com/widgets.js";
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }
+                        }(document, "script", "twitter-wjs");
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

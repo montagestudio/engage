@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "reqwest": "~1.1.0",
+    "matte": "~0.2.0",
+    "montage": "~0.14.6"
+  }
+}

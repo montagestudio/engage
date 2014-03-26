@@ -1,0 +1,82 @@
+:montage-style
+
+  .title
+    font-weight bold
+    margin-bottom 5px
+
+  .byline
+    font-size 12px
+    margin-bottom 5px
+
+    .date
+      float right
+
+  .excerpt
+    overflow hidden
+    line-height 3ex
+    height 9ex
+
+  .more
+    font-size 11px
+
+:montage-script
+
+  Component = require("montage/ui/component").Component
+
+  exports.ItemForum = Component.specialize
+    item: value: null
+
+:montage-html
+
+html
+  head
+    link(rel="stylesheet" type="text/css" href="item-forum.css")
+    :bindings
+      owner:
+        properties:
+          element: "#": "item-forum"
+
+      converterDate:
+        prototype: "montage/core/converter/date-converter"
+        properties:
+          pattern: "ddd MMM dd yyyy"
+
+      category:
+        prototype: "matte/ui/anchor.reel"
+        properties:
+          element: "#": "category"
+        bindings:
+          textContent: "<-": "@owner.item.name ?? ''"
+          href: "<-": "'http://forum.montagestudio.com/category/' + @owner.item.slug"
+
+      listPosts:
+        prototype: "montage/ui/repetition.reel"
+        properties:
+          element: "#": "listPosts"
+        bindings:
+          content: "<-": "@owner.item.topics"
+
+      title:
+        prototype: "matte/ui/anchor.reel"
+        properties:
+          element: "#": "title"
+        bindings:
+          textContent: "<-": "@listPosts:iteration.object.title"
+          href: "<-": "'http://forum.montagestudio.com/t/' + @listPosts:iteration.object.slug + '/' + @listPosts:iteration.object.id"
+
+      count:
+        prototype: "montage/ui/text.reel"
+        properties:
+          element: "#": "count"
+        bindings:
+          value: "<-": "' (' + @listPosts:iteration.object.posts_count + (@listPosts:iteration.object.posts_count > 1 ? ' Posts' : ' Post') + ')'"
+
+  body
+    .item-forum(mid="item-forum")
+      .title
+        span Category
+        a(mid="category")
+      ul(mid="listPosts")
+        li
+          a(mid="title")
+          span(mid="count")

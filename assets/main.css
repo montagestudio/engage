@@ -1,0 +1,34 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800);
+
+body {
+  background-color: #f4f4f4;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  margin: 0px;
+}
+body a {
+  text-decoration: none;
+  color: #929ebc;
+}
+body .main {
+  max-width: 1005px;
+  margin-left: auto;
+  margin-right: auto;
+}
+header,footer {
+  font: 13px/1.231 "Gotham A", "Gotham B", sans-serif;
+}
+@media only screen and (max-width: 1024px) {
+  .main {
+    width: 700px;
+  }
+  .main .column {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 750px) {
+  .main {
+    width: 100%;
+  }
+}
+

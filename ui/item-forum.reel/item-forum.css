@@ -1,0 +1,19 @@
+.item-forum .title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.item-forum .byline {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+.item-forum .byline .date {
+  float: right;
+}
+.item-forum .excerpt {
+  overflow: hidden;
+  line-height: 3ex;
+  height: 9ex;
+}
+.item-forum .more {
+  font-size: 11px;
+}

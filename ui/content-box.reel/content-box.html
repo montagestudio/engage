@@ -1,0 +1,47 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="content-box.css" />
+    <script type="text/montage-serialization">
+        {
+            "owner": {
+                "properties": {
+                    "element": {
+                        "#": "content-box"
+                    }
+                }
+            },
+            "items": {
+                "prototype": "montage/ui/repetition.reel",
+                "properties": {
+                    "element": {
+                        "#": "items"
+                    }
+                },
+                "bindings": {
+                    "content": {
+                        "<-": "@owner.content"
+                    }
+                }
+            },
+            ":iteration": {
+                "alias": "@items:iteration"
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div data-montage-id="content-box" class="content-box">
+        <div class="content-box-header">
+            <div data-param="header"></div>
+        </div>
+        <div data-montage-id="items" class="content">
+            <div class="item">
+                <div data-param="content"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

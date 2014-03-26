@@ -1,0 +1,102 @@
+:montage-style
+
+  .title
+    font-weight bold
+    margin-bottom 5px
+
+    a
+      color black
+
+  .byline
+    font-size 12px
+    margin-bottom 5px
+
+    .date
+      float right
+
+  .excerpt
+    overflow hidden
+    line-height 3ex
+    height 6ex
+    margin-bottom 5px
+
+  .more
+    font-size 11px
+
+:montage-script
+
+  Component = require("montage/ui/component").Component
+
+  exports.ItemBlog = Component.specialize
+    item: value: null
+
+:montage-html
+
+html
+  head
+    link(rel="stylesheet" type="text/css" href="item-blog.css")
+    :bindings
+      owner:
+        properties:
+          element: "#": "item-blog"
+
+      converterDate:
+        prototype: "montage/core/converter/date-converter"
+        properties:
+          pattern: "ddd MMM dd yyyy"
+
+      converterStrip:
+        prototype: "ui/strip-markup-converter"
+
+      title:
+        prototype: "matte/ui/anchor.reel"
+        properties:
+          element: "#": "title"
+        bindings:
+          textContent: "<-": "@owner.item.title ?? ''"
+          href: "<-": "@owner.item.link"
+
+      author:
+        prototype: "montage/ui/text.reel"
+        properties:
+          element: "#": "author"
+        bindings:
+          value: "<-": "@owner.item.author.name"
+
+      date:
+        prototype: "montage/ui/text.reel"
+        properties:
+          element: "#": "date"
+        bindings:
+          value:
+            "<-": "@owner.item.date"
+            converter: "@": "converterDate"
+
+      excerpt:
+        prototype: "montage/ui/text.reel"
+        properties:
+          element: "#": "excerpt"
+        bindings:
+          fullText:
+            "<-": "@owner.item.content.slice(0,1000)"
+            converter: "@": "converterStrip"
+          value: "<-": ".fullText.slice(0,500)"
+
+      more:
+        prototype: "matte/ui/anchor.reel"
+        properties:
+          element: "#": "more"
+        bindings:
+          textContent: "<-": "'Read More'"
+          href: "<-": "@owner.item.link"
+
+  body
+    .item-blog(mid="item-blog")
+      .title
+        a(mid="title")
+      .byline
+        span.date(mid="date")
+        span.author(mid="author")
+      .excerpt(mid="excerpt")
+      a.more(mid="more")
+

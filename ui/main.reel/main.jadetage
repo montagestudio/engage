@@ -1,0 +1,231 @@
+:montage-style
+
+  .hidden
+    display none
+
+  .social-section
+    margin 0
+    padding 0
+
+    li
+      background -webkit-linear-gradient(top, rgb(250, 250, 250), rgb(241, 241, 241))
+      border 1px solid #c9c9c9
+      display inline-block
+      margin-right 5px
+      
+      padding 5px
+      padding-left 10px
+      padding-right 10px
+
+      a
+        color grey
+
+      &:hover
+        background -webkit-linear-gradient(top, rgb(241, 241, 241), rgb(250, 250, 250))
+
+        a
+          color lightgrey
+        
+
+  .column
+    display inline-block
+    vertical-align top
+    width 500px
+
+  .container
+    .content-box-header
+      background -webkit-linear-gradient(top, rgb(250, 250, 250), rgb(241, 241, 241));
+      text-transform uppercase
+
+      .more
+        float right
+        color grey
+        letter-spacing 0.8px
+        font-size 10px
+
+  #blog, #events
+    .byline
+      text-transform uppercase
+      color #b3b3b3
+      letter-spacing 0.6px
+
+    .excerpt
+      color #7a7a7a
+      font-weight 300
+
+    .more
+      text-transform uppercase
+
+:montage-script
+
+  Component = require("montage/ui/component").Component
+
+  exports.Main = Component.specialize
+    templateDidLoad:
+      value: (e) ->
+        console.log "Test"
+        @templateObjects.dataForum.initializeForum()
+
+    debugValue:
+      set: (e) ->
+        console.log "Debug: ", e
+
+:montage-html
+
+html
+  head
+    link(rel="stylesheet" type="text/css" href="main.css")
+    :bindings
+      owner:
+        properties:
+          element: "#": "main"
+
+      # Data sources
+
+      dataForum:
+        prototype: "ui/discourse-controller"
+        properties:
+          siteAddress: "forum.montagestudio.com"
+
+      dataBlog:
+        prototype: "ui/wordpress-controller"
+        properties:
+          siteAddress: "montagestudio.com/blog"
+          queryPosts: {}
+
+      dataEvents:
+        prototype: "ui/wordpress-controller"
+        properties:
+          siteAddress: "montagestudio.com/blog"
+          queryPosts:
+            type: "tribe_events"
+
+      # Blog
+
+      listBlog:
+        prototype: "ui/content-box.reel"
+        properties:
+          element: "#": "listBlog"
+        bindings:
+          content: "<-": "@dataBlog.posts.view(0,3)"
+
+      itemBlog:
+        prototype: "ui/item-blog.reel"
+        properties:
+          element: "#": "itemBlog"
+        bindings:
+          item: "<-": "@listBlog:iteration.object"
+
+      # Events
+
+      listEvents:
+        prototype: "ui/content-box.reel"
+        properties:
+          element: "#": "listEvents"
+        bindings:
+          content: "<-": "@dataEvents.posts.view(0,3)"
+          "classList.has('hidden')": "<-": "@dataEvents.posts.length < 1"
+
+      itemEvent:
+        prototype: "ui/item-event.reel"
+        properties:
+          element: "#": "itemEvent"
+        bindings:
+          item: "<-": "@listEvents:iteration.object"
+
+      # Forum
+
+      listForum:
+        prototype: "ui/content-box.reel"
+        properties:
+          element: "#": "listForum"
+        bindings:
+          content: "<-": "@dataForum.categories.category_list.categories.filter{topics.length && name != 'Prerelease'}"
+
+      itemForum:
+        prototype: "ui/item-forum.reel"
+        properties:
+          element: "#": "itemForum"
+        bindings:
+          item: "<-": "@listForum:iteration.object"
+
+      # Tweets
+
+      listTweets:
+        prototype: "ui/content-box.reel"
+        properties:
+          element: "#": "listTweets"
+          content: [0]
+
+      # Intro
+
+      intro:
+        prototype: "ui/content-box.reel"
+        properties:
+          element: "#": "intro"
+          content: [0]
+
+  body
+    .main(mid="main")
+      .column
+        #intro.container(mid="intro")
+          div(data-arg="header")
+            span <i class="fa fa-heart"></i> Connect with Us
+          div(data-arg="content")
+            p Welcome to our Community.
+            ul
+              li
+                a(href="/blog") Read our Blog
+              li
+                a(href="http://docs.montagestudio.com") View our Tutorials
+              li
+                a(href="http://forum.montagestudio.com") Engage with our Community
+              li
+                a(href="/blog/events") Meet us at Upcoming Events
+
+            p Follow us on our Social Channels:
+
+            ul.social-section
+              li
+                a(href="http://twitter.com/montagejs")
+                  span <i class="fa fa-twitter"></i> Twitter
+              li
+                a(href="https://www.facebook.com/montagejs")
+                  span <i class="fa fa-facebook"></i> Facebook
+              li
+                a(href="https://plus.google.com/b/101723649755315477950/101723649755315477950/about")
+                  span <i class="fa fa-google-plus"></i> Google+
+              li
+                a(href="http://www.linkedin.com/company/3638779")
+                  span <i class="fa fa-linkedin"></i> LinkedIn
+
+        #blog.container(mid="listBlog")
+          div(data-arg="header")
+            a.more(href="/blog") Read More <i class="fa fa-angle-right"></i>
+            span <i class="fa fa-rss-square"></i> From the Blog
+          div(data-arg="content")
+            div(mid="itemBlog")
+        
+      .column
+        #events.container(mid="listEvents")
+          div(data-arg="header")
+            a.more(href="/blog/events") Read More <i class="fa fa-angle-right"></i>
+            span <i class="fa fa-calendar"></i> Upcoming Events
+          div(data-arg="content")
+            div(mid="itemEvent")
+              
+        #forum.container(mid="listForum")
+          div(data-arg="header")
+            a.more(href="http://forum.montagestudio.com") Read More <i class="fa fa-angle-right"></i>
+            span <i class="fa fa-comments"></i> From the Forum
+          div(data-arg="content")
+            div(mid="itemForum")
+
+        #tweets.container(mid="listTweets")
+          div(data-arg="header")
+            a.more(href="http://twitter.com/montagejs") Read More <i class="fa fa-angle-right"></i>
+            span <i class="fa fa-twitter"></i> From Twitter
+          div(data-arg="content")
+            <a class="twitter-timeline" href="https://twitter.com/montagejs" data-chrome="nofooter noheader transparent" data-widget-id="440267201853915136">Tweets by @montagejs</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+

@@ -1,0 +1,16 @@
+.content-box {
+  border: 1px solid #c9c9c9;
+  background: #fff;
+  margin: 15px;
+}
+.content-box .item {
+  padding: 15px;
+}
+.content-box .item + .item {
+  border-top: 1px solid #c9c9c9;
+}
+.content-box .content-box-header {
+  border-bottom: 1px solid #c9c9c9;
+  font-weight: bold;
+  padding: 8px;
+}

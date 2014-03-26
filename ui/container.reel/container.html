@@ -1,0 +1,92 @@
+<html>
+
+<head>
+    <script type="text/montage-serialization">
+        {
+            "owner": {
+                "properties": {
+                    "element": {
+                        "#": "container"
+                    }
+                }
+            },
+            "app": {
+                "prototype": "ui/main.reel",
+                "properties": {
+                    "element": {
+                        "#": "application"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div data-montage-id="container">
+
+        <header class="header">
+            <div class="header-container">
+                <a class="logo" href="/">Home</a>
+
+                <input id="nav-toggle" class="nav-toggle nav-toggle--main" type="checkbox">
+                <label class="nav-toggleLabel nav-toggleLabel--main" for="nav-toggle" onclick></label>
+
+                <nav class="nav">
+                    <a class="nav-item" href="/gallery">Gallery</a>
+                    <a class="nav-item" href="/explore">Explore</a>
+                    <a class="nav-item" href="/learn">Learn</a>
+                    <a class="nav-item active" href="http://montagestudio.com/engage/">Engage</a>
+                    <a class="nav-item" href="/company">Company</a>
+                    <a class="nav-item nav-item--teaser" href="/reveal">Join our BETA</a>
+                </nav>
+
+
+            </div>
+        </header>
+
+        <div data-montage-id="application"></div>
+
+        <footer class="footer">
+
+            <div class="wrapper">
+
+                <ul class="sitemap">
+                    <li>
+                        <a href="/gallery/" class="sitemap-main">Gallery</a>
+                    </li>
+                    <li>
+                        <a href="/explore/" class="sitemap-main">Explore</a>
+                    </li>
+                    <li>
+                        <a href="/learn" class="sitemap-main">Learn</a>
+                        <a href="http://docs.montagestudio.com/montage-studio">Montage Studio</a>
+                        <a href="http://docs.montagestudio.com/montagejs/">MontageJS</a>
+                        <a href="http://docs.montagestudio.com/api/AbstractButton.html">API</a>
+                    </li>
+                    <li>
+                        <a href="/engage/" class="sitemap-main">Engage</a>
+                        <a href="http://montagestudio.com/blog/">Blog</a>
+                        <a href="http://forum.montagestudio.com/">Forum</a>
+                        <a href="http://montagestudio.com/blog/events/">Events</a>
+                        <a href="https://twitter.com/MontageStudio">Twitter</a>
+                    </li>
+                    <li>
+                        <a href="/company/" class="sitemap-main">Company</a>
+                        <a href="/company/history/">History</a>
+                        <a href="/company/press/">Press</a>
+                        <a href="/company/contact-us/">Contact us</a>
+                    </li>
+                </ul>
+
+                <a href="/" class="footer-logo"></a>
+
+                <p class="footer-end">2012–2014 Montage Studio</p>
+            </div>
+
+        </footer>
+
+    </div>
+</body>
+
+</html>

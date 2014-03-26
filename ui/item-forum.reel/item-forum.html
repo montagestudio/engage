@@ -1,0 +1,95 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="item-forum.css" />
+    <script type="text/montage-serialization">
+        {
+            "owner": {
+                "properties": {
+                    "element": {
+                        "#": "item-forum"
+                    }
+                }
+            },
+            "converterDate": {
+                "prototype": "montage/core/converter/date-converter",
+                "properties": {
+                    "pattern": "ddd MMM dd yyyy"
+                }
+            },
+            "category": {
+                "prototype": "matte/ui/anchor.reel",
+                "properties": {
+                    "element": {
+                        "#": "category"
+                    }
+                },
+                "bindings": {
+                    "textContent": {
+                        "<-": "@owner.item.name ?? ''"
+                    },
+                    "href": {
+                        "<-": "'http://forum.montagestudio.com/category/' + @owner.item.slug"
+                    }
+                }
+            },
+            "listPosts": {
+                "prototype": "montage/ui/repetition.reel",
+                "properties": {
+                    "element": {
+                        "#": "listPosts"
+                    }
+                },
+                "bindings": {
+                    "content": {
+                        "<-": "@owner.item.topics"
+                    }
+                }
+            },
+            "title": {
+                "prototype": "matte/ui/anchor.reel",
+                "properties": {
+                    "element": {
+                        "#": "title"
+                    }
+                },
+                "bindings": {
+                    "textContent": {
+                        "<-": "@listPosts:iteration.object.title"
+                    },
+                    "href": {
+                        "<-": "'http://forum.montagestudio.com/t/' + @listPosts:iteration.object.slug + '/' + @listPosts:iteration.object.id"
+                    }
+                }
+            },
+            "count": {
+                "prototype": "montage/ui/text.reel",
+                "properties": {
+                    "element": {
+                        "#": "count"
+                    }
+                },
+                "bindings": {
+                    "value": {
+                        "<-": "' (' + @listPosts:iteration.object.posts_count + (@listPosts:iteration.object.posts_count > 1 ? ' Posts' : ' Post') + ')'"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div data-montage-id="item-forum" class="item-forum">
+        <div class="title"><span>Category</span>
+            <a data-montage-id="category"></a>
+        </div>
+        <ul data-montage-id="listPosts">
+            <li>
+                <a data-montage-id="title"></a><span data-montage-id="count"></span>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>

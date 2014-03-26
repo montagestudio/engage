@@ -1,0 +1,55 @@
+.main .hidden {
+  display: none;
+}
+.main .social-section {
+  margin: 0;
+  padding: 0;
+}
+.main .social-section li {
+  background: -webkit-linear-gradient(top, #fafafa, #f1f1f1);
+  border: 1px solid #c9c9c9;
+  display: inline-block;
+  margin-right: 5px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.main .social-section li a {
+  color: #808080;
+}
+.main .social-section li:hover {
+  background: -webkit-linear-gradient(top, #f1f1f1, #fafafa);
+}
+.main .social-section li:hover a {
+  color: #d3d3d3;
+}
+.main .column {
+  display: inline-block;
+  vertical-align: top;
+  width: 500px;
+}
+.main .container .content-box-header {
+  background: -webkit-linear-gradient(top, #fafafa, #f1f1f1);
+  text-transform: uppercase;
+}
+.main .container .content-box-header .more {
+  float: right;
+  color: #808080;
+  letter-spacing: 0.8px;
+  font-size: 10px;
+}
+.main #blog .byline,
+.main #events .byline {
+  text-transform: uppercase;
+  color: #b3b3b3;
+  letter-spacing: 0.6px;
+}
+.main #blog .excerpt,
+.main #events .excerpt {
+  color: #7a7a7a;
+  font-weight: 300;
+}
+.main #blog .more,
+.main #events .more {
+  text-transform: uppercase;
+}
